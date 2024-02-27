@@ -1,0 +1,218 @@
+<!doctype HTML>
+<head>
+  <title>Tree-sitter Highlighting</title>
+  <style>
+    body {
+      font-family: monospace
+    }
+    .line-number {
+      user-select: none;
+      text-align: right;
+      color: rgba(27,31,35,.3);
+      padding: 0 10px;
+    }
+    .line {
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+
+<table>
+<tr><td class=line-number>1</td><td class=line>; Example PICA200 vertex shader<span style='color: #005fd7'></span>
+</td></tr>
+<tr><td class=line-number>2</td><td class=line>
+</td></tr>
+<tr><td class=line-number>3</td><td class=line>; Uniforms
+</td></tr>
+<tr><td class=line-number>4</td><td class=line><span style='font-weight: bold;color: #005fd7'>.fvec</span> projection[<span style='font-weight: bold;color: #875f00'>4</span>]<span style='color: #4e4e4e'>,</span> modelView[<span style='font-weight: bold;color: #875f00'>4</span>]
+</td></tr>
+<tr><td class=line-number>5</td><td class=line><span style='font-weight: bold;color: #005fd7'>.fvec</span> lightVec<span style='color: #4e4e4e'>,</span> lightHalfVec<span style='color: #4e4e4e'>,</span> lightClr<span style='color: #4e4e4e'>,</span> material[<span style='font-weight: bold;color: #875f00'>4</span>]
+</td></tr>
+<tr><td class=line-number>6</td><td class=line><span style='font-weight: bold;color: #005fd7'>.fvec</span> texcoordoffsets ; x, y for texcoord0, z, w for texcoord1
+</td></tr>
+<tr><td class=line-number>7</td><td class=line>.alias mat_amb material[<span style='font-weight: bold;color: #875f00'>0</span>]
+</td></tr>
+<tr><td class=line-number>8</td><td class=line>.alias mat_dif material[<span style='font-weight: bold;color: #875f00'>1</span>]
+</td></tr>
+<tr><td class=line-number>9</td><td class=line>.alias mat_spe material[<span style='font-weight: bold;color: #875f00'>2</span>]
+</td></tr>
+<tr><td class=line-number>10</td><td class=line>.alias mat_emi material[<span style='font-weight: bold;color: #875f00'>3</span>]
+</td></tr>
+<tr><td class=line-number>11</td><td class=line>
+</td></tr>
+<tr><td class=line-number>12</td><td class=line>; Constants
+</td></tr>
+<tr><td class=line-number>13</td><td class=line><span style='font-weight: bold;color: #005fd7'>.constf</span> myconst(<span style='font-weight: bold;color: #875f00'>0.0</span><span style='color: #4e4e4e'>,</span> <span style='font-weight: bold;color: #875f00'>1.0</span><span style='color: #4e4e4e'>,</span> -<span style='font-weight: bold;color: #875f00'>1.0</span><span style='color: #4e4e4e'>,</span> -<span style='font-weight: bold;color: #875f00'>0.5</span>)
+</td></tr>
+<tr><td class=line-number>14</td><td class=line>.alias  zeros myconst.xxxx ; Vector full of zeros
+</td></tr>
+<tr><td class=line-number>15</td><td class=line>.alias  ones  myconst.yyyy ; Vector full of ones
+</td></tr>
+<tr><td class=line-number>16</td><td class=line>
+</td></tr>
+<tr><td class=line-number>17</td><td class=line>; Outputs
+</td></tr>
+<tr><td class=line-number>18</td><td class=line><span style='font-weight: bold;color: #005fd7'>.out</span> outpos position
+</td></tr>
+<tr><td class=line-number>19</td><td class=line><span style='font-weight: bold;color: #005fd7'>.out</span> outtc0 texcoord0
+</td></tr>
+<tr><td class=line-number>20</td><td class=line><span style='font-weight: bold;color: #005fd7'>.out</span> outtc1 texcoord1
+</td></tr>
+<tr><td class=line-number>21</td><td class=line><span style='font-weight: bold;color: #005fd7'>.out</span> outclr color
+</td></tr>
+<tr><td class=line-number>22</td><td class=line>
+</td></tr>
+<tr><td class=line-number>23</td><td class=line>; Inputs (defined as aliases for convenience)
+</td></tr>
+<tr><td class=line-number>24</td><td class=line><span style='font-weight: bold;color: #005fd7'>.alias</span> inpos <span style='font-weight: bold;'>v0</span>
+</td></tr>
+<tr><td class=line-number>25</td><td class=line><span style='font-weight: bold;color: #005fd7'>.alias</span> intex <span style='font-weight: bold;'>v1</span>
+</td></tr>
+<tr><td class=line-number>26</td><td class=line><span style='font-weight: bold;color: #005fd7'>.alias</span> innrm <span style='font-weight: bold;'>v2</span>
+</td></tr>
+<tr><td class=line-number>27</td><td class=line>
+</td></tr>
+<tr><td class=line-number>28</td><td class=line>.proc main
+</td></tr>
+<tr><td class=line-number>29</td><td class=line>	; Force the w component of inpos to be 1.0
+</td></tr>
+<tr><td class=line-number>30</td><td class=line>	<span style='color: #005fd7'>mov</span> r0.xyz<span style='color: #4e4e4e'>,</span> inpos
+</td></tr>
+<tr><td class=line-number>31</td><td class=line>	<span style='color: #005fd7'>mov</span> r0.w<span style='color: #4e4e4e'>,</span>   ones
+</td></tr>
+<tr><td class=line-number>32</td><td class=line>
+</td></tr>
+<tr><td class=line-number>33</td><td class=line>	; r1 = modelView * inpos
+</td></tr>
+<tr><td class=line-number>34</td><td class=line>	<span style='color: #005fd7'>dp4</span> r1.x<span style='color: #4e4e4e'>,</span> modelView[<span style='font-weight: bold;color: #875f00'>0</span>]<span style='color: #4e4e4e'>,</span> r0
+</td></tr>
+<tr><td class=line-number>35</td><td class=line>	<span style='color: #005fd7'>dp4</span> r1.y<span style='color: #4e4e4e'>,</span> modelView[<span style='font-weight: bold;color: #875f00'>1</span>]<span style='color: #4e4e4e'>,</span> r0
+</td></tr>
+<tr><td class=line-number>36</td><td class=line>	<span style='color: #005fd7'>dp4</span> r1.z<span style='color: #4e4e4e'>,</span> modelView[<span style='font-weight: bold;color: #875f00'>2</span>]<span style='color: #4e4e4e'>,</span> r0
+</td></tr>
+<tr><td class=line-number>37</td><td class=line>	<span style='color: #005fd7'>dp4</span> r1.w<span style='color: #4e4e4e'>,</span> modelView[<span style='font-weight: bold;color: #875f00'>3</span>]<span style='color: #4e4e4e'>,</span> r0
+</td></tr>
+<tr><td class=line-number>38</td><td class=line>
+</td></tr>
+<tr><td class=line-number>39</td><td class=line>	; outpos = projection * r1
+</td></tr>
+<tr><td class=line-number>40</td><td class=line>	<span style='color: #005fd7'>dp4</span> outpos.x<span style='color: #4e4e4e'>,</span> projection[<span style='font-weight: bold;color: #875f00'>0</span>]<span style='color: #4e4e4e'>,</span> r1
+</td></tr>
+<tr><td class=line-number>41</td><td class=line>	<span style='color: #005fd7'>dp4</span> outpos.y<span style='color: #4e4e4e'>,</span> projection[<span style='font-weight: bold;color: #875f00'>1</span>]<span style='color: #4e4e4e'>,</span> r1
+</td></tr>
+<tr><td class=line-number>42</td><td class=line>	<span style='color: #005fd7'>dp4</span> outpos.z<span style='color: #4e4e4e'>,</span> projection[<span style='font-weight: bold;color: #875f00'>2</span>]<span style='color: #4e4e4e'>,</span> r1
+</td></tr>
+<tr><td class=line-number>43</td><td class=line>	<span style='color: #005fd7'>dp4</span> outpos.w<span style='color: #4e4e4e'>,</span> projection[<span style='font-weight: bold;color: #875f00'>3</span>]<span style='color: #4e4e4e'>,</span> r1
+</td></tr>
+<tr><td class=line-number>44</td><td class=line>
+</td></tr>
+<tr><td class=line-number>45</td><td class=line>	; outtex = intex
+</td></tr>
+<tr><td class=line-number>46</td><td class=line>	; add intex,  texcoordoffsets.xy
+</td></tr>
+<tr><td class=line-number>47</td><td class=line>	<span style='color: #005fd7'>mov</span> r3<span style='color: #4e4e4e'>,</span> zeros
+</td></tr>
+<tr><td class=line-number>48</td><td class=line>	<span style='color: #005fd7'>mov</span> r4<span style='color: #4e4e4e'>,</span> texcoordoffsets
+</td></tr>
+<tr><td class=line-number>49</td><td class=line>	<span style='color: #005fd7'>add</span> r3<span style='color: #4e4e4e'>,</span> intex<span style='color: #4e4e4e'>,</span> r4
+</td></tr>
+<tr><td class=line-number>50</td><td class=line>	<span style='color: #005fd7'>mov</span> outtc0<span style='color: #4e4e4e'>,</span> r3
+</td></tr>
+<tr><td class=line-number>51</td><td class=line>	<span style='color: #005fd7'>mov</span> r3<span style='color: #4e4e4e'>,</span> zeros
+</td></tr>
+<tr><td class=line-number>52</td><td class=line>	<span style='color: #005fd7'>add</span> r3<span style='color: #4e4e4e'>,</span> intex<span style='color: #4e4e4e'>,</span> r4.zwxy
+</td></tr>
+<tr><td class=line-number>53</td><td class=line>	<span style='color: #005fd7'>mov</span> outtc1<span style='color: #4e4e4e'>,</span> r3
+</td></tr>
+<tr><td class=line-number>54</td><td class=line>
+</td></tr>
+<tr><td class=line-number>55</td><td class=line>
+</td></tr>
+<tr><td class=line-number>56</td><td class=line>	; Transform the normal vector with the modelView matrix
+</td></tr>
+<tr><td class=line-number>57</td><td class=line>	; r1 = normalize(modelView * innrm)
+</td></tr>
+<tr><td class=line-number>58</td><td class=line>	<span style='color: #005fd7'>mov</span> r0.xyz<span style='color: #4e4e4e'>,</span> innrm
+</td></tr>
+<tr><td class=line-number>59</td><td class=line>	<span style='color: #005fd7'>mov</span> r0.w<span style='color: #4e4e4e'>,</span>   zeros
+</td></tr>
+<tr><td class=line-number>60</td><td class=line>	<span style='color: #005fd7'>dp4</span> r1.x<span style='color: #4e4e4e'>,</span>   modelView[<span style='font-weight: bold;color: #875f00'>0</span>]<span style='color: #4e4e4e'>,</span> r0
+</td></tr>
+<tr><td class=line-number>61</td><td class=line>	<span style='color: #005fd7'>dp4</span> r1.y<span style='color: #4e4e4e'>,</span>   modelView[<span style='font-weight: bold;color: #875f00'>1</span>]<span style='color: #4e4e4e'>,</span> r0
+</td></tr>
+<tr><td class=line-number>62</td><td class=line>	<span style='color: #005fd7'>dp4</span> r1.z<span style='color: #4e4e4e'>,</span>   modelView[<span style='font-weight: bold;color: #875f00'>2</span>]<span style='color: #4e4e4e'>,</span> r0
+</td></tr>
+<tr><td class=line-number>63</td><td class=line>	<span style='color: #005fd7'>mov</span> r1.w<span style='color: #4e4e4e'>,</span>   zeros
+</td></tr>
+<tr><td class=line-number>64</td><td class=line>	<span style='color: #005fd7'>dp3</span> r2<span style='color: #4e4e4e'>,</span>     r1<span style='color: #4e4e4e'>,</span> r1 ; r2 = x^2+y^2+z^2 for each component
+</td></tr>
+<tr><td class=line-number>65</td><td class=line>	<span style='color: #005fd7'>rsq</span> r2<span style='color: #4e4e4e'>,</span>     r2     ; r2 = 1/sqrt(r2)  &#39;&#39;
+</td></tr>
+<tr><td class=line-number>66</td><td class=line>	<span style='color: #005fd7'>mul</span> r1<span style='color: #4e4e4e'>,</span>     r2<span style='color: #4e4e4e'>,</span> r1 ; r1 = r1*r2
+</td></tr>
+<tr><td class=line-number>67</td><td class=line>
+</td></tr>
+<tr><td class=line-number>68</td><td class=line>	; Calculate the diffuse level (r0.x) and the shininess level (r0.y)
+</td></tr>
+<tr><td class=line-number>69</td><td class=line>	; r0.x = max(0, -(lightVec * r1))
+</td></tr>
+<tr><td class=line-number>70</td><td class=line>	; r0.y = max(0, (-lightHalfVec[i]) * r1) ^ 2
+</td></tr>
+<tr><td class=line-number>71</td><td class=line>	<span style='color: #005fd7'>dp3</span> r0.x<span style='color: #4e4e4e'>,</span> lightVec<span style='color: #4e4e4e'>,</span>      r1
+</td></tr>
+<tr><td class=line-number>72</td><td class=line>	<span style='color: #005fd7'>add</span> r0.x<span style='color: #4e4e4e'>,</span> zeros<span style='color: #4e4e4e'>,</span>         -r0
+</td></tr>
+<tr><td class=line-number>73</td><td class=line>	<span style='color: #005fd7'>dp3</span> r0.y<span style='color: #4e4e4e'>,</span> -lightHalfVec<span style='color: #4e4e4e'>,</span> r1
+</td></tr>
+<tr><td class=line-number>74</td><td class=line>	<span style='color: #005fd7'>max</span> r0<span style='color: #4e4e4e'>,</span>   zeros<span style='color: #4e4e4e'>,</span>         r0
+</td></tr>
+<tr><td class=line-number>75</td><td class=line>	<span style='color: #005fd7'>mul</span> r0.y<span style='color: #4e4e4e'>,</span> r0<span style='color: #4e4e4e'>,</span>            r0
+</td></tr>
+<tr><td class=line-number>76</td><td class=line>
+</td></tr>
+<tr><td class=line-number>77</td><td class=line>	; Accumulate the vertex color in r1, initializing it to the emission color
+</td></tr>
+<tr><td class=line-number>78</td><td class=line>	<span style='color: #005fd7'>mov</span> r1<span style='color: #4e4e4e'>,</span> mat_emi
+</td></tr>
+<tr><td class=line-number>79</td><td class=line>
+</td></tr>
+<tr><td class=line-number>80</td><td class=line>	; r1 += specularColor * lightClr * shininessLevel
+</td></tr>
+<tr><td class=line-number>81</td><td class=line>	<span style='color: #005fd7'>mul</span> r2<span style='color: #4e4e4e'>,</span> lightClr<span style='color: #4e4e4e'>,</span> r0.yyyy
+</td></tr>
+<tr><td class=line-number>82</td><td class=line>	<span style='color: #005fd7'>mad</span> r1<span style='color: #4e4e4e'>,</span> r2<span style='color: #4e4e4e'>,</span> mat_spe<span style='color: #4e4e4e'>,</span> r1
+</td></tr>
+<tr><td class=line-number>83</td><td class=line>
+</td></tr>
+<tr><td class=line-number>84</td><td class=line>	; r1 += diffuseColor * lightClr * diffuseLevel
+</td></tr>
+<tr><td class=line-number>85</td><td class=line>	<span style='color: #005fd7'>mul</span> r2<span style='color: #4e4e4e'>,</span> lightClr<span style='color: #4e4e4e'>,</span> r0.xxxx
+</td></tr>
+<tr><td class=line-number>86</td><td class=line>	<span style='color: #005fd7'>mad</span> r1<span style='color: #4e4e4e'>,</span> r2<span style='color: #4e4e4e'>,</span> mat_dif<span style='color: #4e4e4e'>,</span> r1
+</td></tr>
+<tr><td class=line-number>87</td><td class=line>
+</td></tr>
+<tr><td class=line-number>88</td><td class=line>	; r1 += ambientColor * lightClr
+</td></tr>
+<tr><td class=line-number>89</td><td class=line>	<span style='color: #005fd7'>mov</span> r2<span style='color: #4e4e4e'>,</span> lightClr
+</td></tr>
+<tr><td class=line-number>90</td><td class=line>	<span style='color: #005fd7'>mad</span> r1<span style='color: #4e4e4e'>,</span> r2<span style='color: #4e4e4e'>,</span> mat_amb<span style='color: #4e4e4e'>,</span> r1
+</td></tr>
+<tr><td class=line-number>91</td><td class=line>
+</td></tr>
+<tr><td class=line-number>92</td><td class=line>	; outclr = clamp r1 to [0,1]
+</td></tr>
+<tr><td class=line-number>93</td><td class=line>	<span style='color: #005fd7'>min</span> outclr<span style='color: #4e4e4e'>,</span> ones<span style='color: #4e4e4e'>,</span> r1
+</td></tr>
+<tr><td class=line-number>94</td><td class=line>
+</td></tr>
+<tr><td class=line-number>95</td><td class=line>	; We&#39;re finished
+</td></tr>
+<tr><td class=line-number>96</td><td class=line>	<span style='color: #005fd7'>end</span>
+</td></tr>
+<tr><td class=line-number>97</td><td class=line><span style='font-weight: bold;color: #005fd7'>.end</span>
+</td></tr>
+</table>
+
+</body>

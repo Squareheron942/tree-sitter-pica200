@@ -1,0 +1,38 @@
+==========
+Line comment
+==========
+; This is a comment
+---
+(program
+    (line_comment))
+
+==========
+Inline comment with instr no args
+==========
+end ; This is an in-line comment
+---
+(program
+    (instruction
+        (name))
+    (line_comment))
+
+==========
+Inline comment with instr one reg arg, no space between
+==========
+ifu boolunif; This is an in-line comment
+---
+(program
+    (instruction
+        (name)
+        (ident))
+    (line_comment))
+==========
+Inline comment with instr one reg arg, space between
+==========
+ifu boolunif ; This is an in-line comment
+---
+(program
+    (instruction
+        (name)
+        (ident))
+    (line_comment))

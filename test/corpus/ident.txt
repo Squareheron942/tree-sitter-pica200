@@ -1,0 +1,32 @@
+==========
+Basic identifier declaration
+==========
+.alias myconst v0
+---
+(program
+    (meta
+        (alias)
+        (ident)
+        (reg)))
+
+==========
+Instruction with identifier
+==========
+ifu myconst
+---
+(program
+    (instruction
+        (name)
+        (ident)))
+
+
+===============
+Identifier with mask
+===============
+ifu myconst.xyzw
+---
+(program
+    (instruction
+        (name)
+        (ident)
+        (accspec)))

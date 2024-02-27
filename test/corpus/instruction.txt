@@ -1,0 +1,46 @@
+==========
+Instruction -- No args
+==========
+break
+---
+(program
+    (instruction (name)))
+
+==========
+Instruction -- One reg arg
+==========
+ifu v0
+---
+(program
+    (instruction
+        (name)
+        (reg)
+    )
+)
+
+==========
+Instruction -- Two reg args
+==========
+add r1, r2
+---
+(program
+    (instruction
+        (name)
+        (reg)
+        (reg)
+    )
+)
+
+==========
+Instruction -- offset arg, reg arg
+==========
+dp4 r1.w, bones[a0.x + 3], r0
+---
+(program
+    (instruction
+        (name)
+        (reg) (accspec)
+        (ident) (index (reg) (accspec) (int))
+        (reg)
+    )
+)
