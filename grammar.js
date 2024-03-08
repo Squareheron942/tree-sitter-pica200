@@ -19,11 +19,11 @@ module.exports = grammar({
                 seq(choice($.ident, $.reg), choice($.index, field('specifier', optional($.accspec)))),
                 $.reg
             ),
-            (seq(
+            seq(
               field('kind', $.in),
               seq(choice($.ident, $.reg), choice($.index, field('specifier', optional($.accspec)))),
               optional($.reg)
-            )),
+            ),
             seq(
               field('kind', $.out),
               choice(/[-]/, seq(choice($.ident, $.reg), choice($.index, field('specifier', optional($.accspec))))),
@@ -32,7 +32,8 @@ module.exports = grammar({
             ),
             seq(
                 field('kind', $.meta_ident),
-                repeat(seq(',', optional('-'), seq(choice($.ident, $.reg), choice($.index, field('specifier', optional($.accspec))))))),
+                repeat(seq(',', optional('-'), seq(choice($.ident, $.reg), choice($.index, field('specifier', optional($.accspec))))))
+            ),
         ),
     name: $ => /nop|end|emit|setemit|add|dp[34h]|dst|mul|sge|slt|max|min|ex2|lg2|litp|flr|rcp|rsq|mova?|cmp|call[cu]?|for|breakc?|if[cu]|jmp[cu]|mad/,
     instruction: $ => seq(field('kind', $.name), sep(',', seq(optional('-'), seq(choice($.ident, $.reg), choice($.index, field('specifier', optional($.accspec))))))),
@@ -47,8 +48,8 @@ module.exports = grammar({
     out: $ => /([.]out)/,
     propname: $ => /(pos(ition)?|normalquat|nquat|color|clr|t(ex)?coord(0w?|1|2)|view|dummy)/,
     line_comment: $ => /;.*/,
-    int: $ => token(prec(2, /[0-9]+/)),
-    float: $ => token(prec(2, /[0-9]+\.[0-9]+/)),
+    int: $ => token(prec(3, seq(optional(/-/), /[0-9]+/))),
+    float: $ => token(prec(2, seq(optional(/-/), /[0-9]+\.[0-9]+/))),
   }
 });
 

@@ -2,12 +2,12 @@
 (reg) @variable.builtin
 (propname) @variable.builtin
 (meta
-  kind: (_) @function.builtin)
+  kind: (_) @keyword)
 (instruction
   kind: (_) @function.call)
 (ident) @operator
 (reg) @variable.builtin
-(accspec) @variable
+(accspec) @type.qualifier
 
 ; Comments
 [
