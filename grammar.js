@@ -22,21 +22,23 @@ module.exports = grammar({
 		    seq(choice($.ident, $.reg), choice($.index, field('specifier', optional($.accspec)))),
 		    optional($.reg)
 	    ),
+    outputregdec: $ => seq(
+      field('kind', $.out),
+      choice(/[-]/, seq(choice($.ident, $.reg), choice($.index, field('specifier', optional($.accspec))))),
+      $.propname,
+      optional($.reg)
+    ),
     meta: $ =>
         choice(
             $.aliasdec,
             $.inputregdec,
+            $.outputregdec,
+            $.meta_ident,
             seq(
-              field('kind', $.out),
-              choice(/[-]/, seq(choice($.ident, $.reg), choice($.index, field('specifier', optional($.accspec))))),
-              $.propname,
-              optional($.reg)
+                $.unif,
+                sep(",", seq($.ident, optional($.index))),
             ),
-            seq(
-                field('kind', $.meta_ident),
-                $.ident,
-                choice($.arr, $.index)
-            ),
+            seq($.const, sep(",", seq($.ident, $.arr)))
         ),
     name: $ => /nop|end|emit|setemit|add|dp[34h]|dst|mul|sge|slt|max|min|ex2|lg2|litp|flr|rcp|rsq|mova?|cmp|call[cu]?|for|breakc?|if[cu]|jmp[cu]|mad/,
     instruction: $ => seq(field('kind', $.name), sep(',', seq(optional('-'), seq(choice($.ident, $.reg), choice($.index, field('specifier', optional($.accspec))))))),
@@ -46,7 +48,9 @@ module.exports = grammar({
     index: $ => seq('[', repeat(choice(seq(choice($.ident, $.reg), choice($.index, field('specifier', optional($.accspec)))), $.int, $.float, /[+-]/)), ']'),
     arr: $ => seq('(', sep(',', choice($.int, $.float)), ')'),
     alias: $ => /[.]alias/,
-    meta_ident: $ => /[.](else|end|[fi]vec|bool|const(fa?|i)|entry|nodvle|gsh|set[fib]|proc)/,
+    unif: $ => /.[fi]vec/,
+    const: $ => /.const(fa?|i)/,
+    meta_ident: $ => /[.](else|end|bool|entry|nodvle|gsh|set[fib]|proc)/,
     in: $ => /([.]in)/,
     out: $ => /([.]out)/,
     propname: $ => /(pos(ition)?|normalquat|nquat|color|clr|t(ex)?coord(0w?|1|2)|view|dummy)/,

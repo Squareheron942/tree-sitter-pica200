@@ -200,15 +200,58 @@
   {
     "type": "meta",
     "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "aliasdec",
+          "named": true
+        },
+        {
+          "type": "arr",
+          "named": true
+        },
+        {
+          "type": "const",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "index",
+          "named": true
+        },
+        {
+          "type": "inputregdec",
+          "named": true
+        },
+        {
+          "type": "meta_ident",
+          "named": true
+        },
+        {
+          "type": "outputregdec",
+          "named": true
+        },
+        {
+          "type": "unif",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "outputregdec",
+    "named": true,
     "fields": {
       "kind": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
-          {
-            "type": "meta_ident",
-            "named": true
-          },
           {
             "type": "out",
             "named": true
@@ -231,23 +274,11 @@
       "required": true,
       "types": [
         {
-          "type": "aliasdec",
-          "named": true
-        },
-        {
-          "type": "arr",
-          "named": true
-        },
-        {
           "type": "ident",
           "named": true
         },
         {
           "type": "index",
-          "named": true
-        },
-        {
-          "type": "inputregdec",
           "named": true
         },
         {
@@ -317,6 +348,10 @@
     "named": true
   },
   {
+    "type": "const",
+    "named": true
+  },
+  {
     "type": "float",
     "named": true
   },
@@ -354,6 +389,10 @@
   },
   {
     "type": "reg",
+    "named": true
+  },
+  {
+    "type": "unif",
     "named": true
   }
 ]

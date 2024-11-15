@@ -1,0 +1,58 @@
+==========
+Constant declaration
+==========
+.constf myconst(0.0, 1.0, -1.0, -0.5)
+---
+(program
+	(meta
+		(const)
+		(ident)
+		(arr
+			(float)
+			(float)
+			(float)
+			(float))))
+
+==========
+Basic alias declaration
+==========
+.alias myconst v0
+---
+(program
+    (meta
+        (aliasdec
+	        (alias)
+	        (ident)
+	        (reg))))
+
+==========
+Basic uniform declaration
+==========
+.fvec myconst
+---
+(program
+	(meta
+		(unif)
+		(ident)))
+
+==========
+Multiple uniform declaration
+==========
+.fvec myconst, myconst2
+---
+(program
+	(meta
+		(unif)
+		(ident)
+		(ident)))
+
+==========
+Unif array declaration
+==========
+.fvec myconst[4]
+---
+(program
+    (meta
+        (unif)
+        (ident)
+		(index (int))))

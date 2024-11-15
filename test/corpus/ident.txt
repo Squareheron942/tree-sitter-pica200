@@ -1,16 +1,4 @@
 ==========
-Basic alias declaration
-==========
-.alias myconst v0
----
-(program
-    (meta
-        (aliasdec
-	        (alias)
-	        (ident)
-	        (reg))))
-
-==========
 Instruction with identifier
 ==========
 ifu myconst
