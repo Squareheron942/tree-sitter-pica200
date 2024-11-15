@@ -1,13 +1,14 @@
 ==========
-Basic identifier declaration
+Basic alias declaration
 ==========
 .alias myconst v0
 ---
 (program
     (meta
-        (alias)
-        (ident)
-        (reg)))
+        (aliasdec
+	        (alias)
+	        (ident)
+	        (reg))))
 
 ==========
 Instruction with identifier

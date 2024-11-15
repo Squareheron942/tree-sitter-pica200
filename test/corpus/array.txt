@@ -1,0 +1,24 @@
+==========
+Constant declaration
+==========
+.constf myconst(0.0, 1.0, -1.0, -0.5)
+---
+(program
+	(meta
+		(meta_ident)
+		(ident)
+		(arr
+			(float)
+			(float)
+			(float)
+			(float))))
+==========
+Uniform declaration
+==========
+.fvec Vec[4]
+---
+(program
+	(meta
+		(meta_ident)
+		(ident)
+		(index (int))))
